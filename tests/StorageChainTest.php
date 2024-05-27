@@ -18,12 +18,12 @@ use PHPUnit\Framework\TestCase;
 class StorageChainTest extends TestCase
 {
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model1;
 
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model2;
 
@@ -38,7 +38,7 @@ class StorageChainTest extends TestCase
     protected $storage2;
 
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

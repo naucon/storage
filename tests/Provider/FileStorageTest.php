@@ -16,12 +16,12 @@ use PHPUnit\Framework\TestCase;
 class FileStorageTest extends TestCase
 {
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model1;
 
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model2;
 
@@ -32,7 +32,7 @@ class FileStorageTest extends TestCase
 
 
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -50,7 +50,7 @@ class FileStorageTest extends TestCase
         @mkdir($this->storageDir);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         array_map('unlink', glob($this->storageDir . '/storage-model-*'));
         if (is_dir($this->storageDir)) {

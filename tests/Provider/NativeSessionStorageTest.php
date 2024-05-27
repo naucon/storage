@@ -19,18 +19,18 @@ use PHPUnit\Framework\TestCase;
 class NativeSessionStorageTest extends TestCase
 {
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model1;
 
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model2;
 
 
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -47,7 +47,7 @@ class NativeSessionStorageTest extends TestCase
         $this->model2->setDescription('Pear');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($_SESSION);
 

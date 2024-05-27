@@ -12,8 +12,8 @@ namespace Naucon\Storage\Tests\Provider;
 use Naucon\Storage\Exception\StorageException;
 use Naucon\Storage\Provider\RedisStorage;
 use Naucon\Storage\Tests\Model\Product;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 use Predis\Client;
 use Predis\ClientException;
 use Predis\Profile\ProfileInterface;
@@ -27,7 +27,7 @@ use Predis\Profile\ProfileInterface;
 class RedisStorageTest extends TestCase
 {
     /**
-     * @var Client|PHPUnit_Framework_MockObject_MockObject
+     * @var Client|MockObject
      */
     protected $client;
 
@@ -42,13 +42,13 @@ class RedisStorageTest extends TestCase
     protected $model2;
 
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->client = $this->getMockBuilder(Client::class)
-            ->disableOriginalConstructor()
-            ->setMethods(['get', 'mget', 'set', 'setex', 'del', 'exists', 'keys', 'scan', 'getProfile', 'flushdb'])
+            ->addMethods(['get', 'mget', 'set', 'setex', 'del', 'exists', 'keys', 'scan', 'flushdb'])
+            ->onlyMethods(['getProfile'])
             ->getMock();
 
         $this->model1 = new Product();
@@ -447,9 +447,7 @@ class RedisStorageTest extends TestCase
         $expectedKey = '52e848a7eeaa022db017f9b25087fc45:2';
         $client = $this->client;
 
-        $profileInterface = $this->getMockBuilder(ProfileInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $profileInterface = $this->getMockBuilder(ProfileInterface::class)->getMock();
 
         $profileInterface->expects($this->any())
             ->method('supportsCommand')

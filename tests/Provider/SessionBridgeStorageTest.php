@@ -16,7 +16,9 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
+use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
 
 /**
  * @preserveGlobalState disabled
@@ -24,27 +26,27 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 class SessionBridgeStorageTest extends TestCase
 {
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model1;
 
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model2;
 
     /**
-     * @var \Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface
+     * @var SessionStorageInterface
      */
     protected $storage;
     /**
-     * @var \Symfony\Component\HttpFoundation\Session\SessionInterface
+     * @var SessionInterface
      */
     protected $session;
 
 
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -63,7 +65,7 @@ class SessionBridgeStorageTest extends TestCase
         $this->model2->setDescription('Pear');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->storage = null;
         $this->session = null;

@@ -13,8 +13,8 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Persistence\ObjectRepository;
 use Naucon\Storage\Tests\Model\Product;
 use Naucon\Storage\Provider\DoctrineStorage;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 class DoctrineStorageTest extends TestCase
 {
@@ -29,13 +29,13 @@ class DoctrineStorageTest extends TestCase
     protected $model2;
 
     /**
-     * @var ObjectManager|PHPUnit_Framework_MockObject_MockObject
+     * @var ObjectManager|MockObject
      */
     protected $objectManagerMock;
 
 
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

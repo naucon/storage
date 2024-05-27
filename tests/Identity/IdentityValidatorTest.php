@@ -9,6 +9,7 @@
  */
 namespace Naucon\Storage\Tests\Identity;
 
+use Naucon\Storage\Exception\InvalidArgumentException;
 use Naucon\Storage\Identity\IdentityValidator;
 use Naucon\Storage\Identity\IdentityValidatorInterface;
 use PHPUnit\Framework\TestCase;
@@ -54,33 +55,27 @@ class IdentityValidatorTest extends TestCase
         ];
     }
 
-    /**
-     * @expectedException \Naucon\Storage\Exception\InvalidArgumentException
-     */
     public function testValidateWithEmptyStringShouldThrowException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $identifier = '';
 
         $validator = new IdentityValidator();
         $validator->validate($identifier);
     }
 
-    /**
-     * @expectedException \Naucon\Storage\Exception\InvalidArgumentException
-     */
     public function testValidateWithNullShouldThrowException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $identifier = null;
 
         $validator = new IdentityValidator();
         $validator->validate($identifier);
     }
 
-    /**
-     * @expectedException \Naucon\Storage\Exception\InvalidArgumentException
-     */
     public function testValidateWithIllegalCharactersShouldThrowException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $identifier = 'foo@';
 
         $validator = new IdentityValidator();
