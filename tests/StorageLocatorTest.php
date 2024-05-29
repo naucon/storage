@@ -9,6 +9,7 @@
  */
 namespace Naucon\Storage\Tests;
 
+use Naucon\Storage\Exception\MissingStorageException;
 use Naucon\Storage\Provider\ArrayStorage;
 use Naucon\Storage\StorageRegistry;
 use Naucon\Storage\Tests\Model\Product;
@@ -21,17 +22,17 @@ use PHPUnit\Framework\TestCase;
 class StorageLocatorTest extends TestCase
 {
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model1;
 
     /**
-     * @var \Naucon\Storage\Tests\Model\Category
+     * @var Category
      */
     protected $model2;
 
     /**
-     * @var \Naucon\Storage\Tests\Model\User
+     * @var User
      */
     protected $model3;
 
@@ -41,7 +42,7 @@ class StorageLocatorTest extends TestCase
     protected $storageRegistry;
 
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -93,20 +94,16 @@ class StorageLocatorTest extends TestCase
         $this->assertCount(1, $actualStorages);
     }
 
-    /**
-     * @expectedException \Naucon\Storage\Exception\MissingStorageException
-     */
     public function testLocateWithNoStorage()
     {
+        $this->expectException(MissingStorageException::class);
         $storageLocator = new StorageLocator(new StorageRegistry());
         $storageLocator->locate($this->model1);
     }
 
-    /**
-     * @expectedException \Naucon\Storage\Exception\MissingStorageException
-     */
     public function testLocateWithUnknownModel()
     {
+        $this->expectException(MissingStorageException::class);
         $storageLocator = new StorageLocator($this->storageRegistry);
         $storageLocator->locate($this->model2);
     }

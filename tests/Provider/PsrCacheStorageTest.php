@@ -9,6 +9,8 @@
  */
 namespace Naucon\Storage\Tests\Provider;
 
+use Naucon\Storage\Exception\UnsupportedException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
@@ -24,28 +26,28 @@ use Naucon\Storage\Tests\Model\Product;
 class PsrCacheStorageTest extends TestCase
 {
     /**
-     * @var CacheItemPoolInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var CacheItemPoolInterface|MockObject
      */
     protected $cache;
 
     /**
-     * @var CacheItemInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var CacheItemInterface|MockObject
      */
     protected $cacheItem;
 
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model1;
 
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model2;
 
 
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -351,11 +353,9 @@ class PsrCacheStorageTest extends TestCase
         $this->assertFalse($storage->has($badIdentifier));
     }
 
-    /**
-     * @expectedException  \Naucon\Storage\Exception\UnsupportedException
-     */
     public function testFindAll()
     {
+        $this->expectException(UnsupportedException::class);
         $cache  = $this->cache;
 
         $storage = new PsrCacheStorage($cache, Product::class);

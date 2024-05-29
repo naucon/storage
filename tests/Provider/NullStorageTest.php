@@ -16,18 +16,18 @@ use PHPUnit\Framework\TestCase;
 class NullStorageTest extends TestCase
 {
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model1;
 
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model2;
 
 
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

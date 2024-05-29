@@ -10,6 +10,8 @@
 namespace Naucon\Storage\Tests;
 
 use Naucon\Storage\CreateAwareInterface;
+use Naucon\Storage\Exception\MissingStorageException;
+use Naucon\Storage\Exception\UnsupportedException;
 use Naucon\Storage\Provider\ArrayStorage;
 use Naucon\Storage\Tests\Model\Product;
 use Naucon\Storage\StorageInterface;
@@ -19,12 +21,12 @@ use PHPUnit\Framework\TestCase;
 class StorageManagerTest extends TestCase
 {
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model1;
 
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model2;
 
@@ -35,7 +37,7 @@ class StorageManagerTest extends TestCase
 
 
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -80,11 +82,9 @@ class StorageManagerTest extends TestCase
         $this->assertInstanceOf(Product::class, $model);
     }
 
-    /**
-     * @expectedException \Naucon\Storage\Exception\UnsupportedException
-     */
     public function testCreateWithSupportingSubStorage()
     {
+        $this->expectException(UnsupportedException::class);
         /**
          * @var StorageInterface $subStorage
          */
@@ -143,11 +143,9 @@ class StorageManagerTest extends TestCase
         $this->assertNull($model);
     }
 
-    /**
-     * @expectedException \Naucon\Storage\Exception\MissingStorageException
-     */
     public function testFindWithoutStorage()
     {
+        $this->expectException(MissingStorageException::class);
         $identifier = 1;
 
         $storage = new StorageManager();

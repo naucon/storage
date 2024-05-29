@@ -9,6 +9,7 @@
  */
 namespace Naucon\Storage\Tests;
 
+use Naucon\Storage\Exception\MissingStorageException;
 use Naucon\Storage\Provider\ArrayStorage;
 use Naucon\Storage\StorageRegistry;
 use Naucon\Storage\Tests\Model\Category;
@@ -20,12 +21,12 @@ use PHPUnit\Framework\TestCase;
 class StorageFactoryTest extends TestCase
 {
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model1;
 
     /**
-     * @var \Naucon\Storage\Tests\Model\Product
+     * @var Product
      */
     protected $model2;
 
@@ -46,7 +47,7 @@ class StorageFactoryTest extends TestCase
 
 
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -90,11 +91,9 @@ class StorageFactoryTest extends TestCase
         $this->assertInstanceOf(StorageInterface::class, $storage);
     }
 
-    /**
-     * @expectedException \Naucon\Storage\Exception\MissingStorageException
-     */
     public function testGetStorageMissingStorage()
     {
+        $this->expectException(MissingStorageException::class);
         $manager = new StorageFactory();
         $manager->register('product', $this->storage1);
         $manager->register('category', $this->storage2);
