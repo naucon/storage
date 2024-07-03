@@ -9,7 +9,8 @@
  */
 namespace Naucon\Storage\Provider;
 
-use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
+
+use Naucon\Storage\Session\AttributeBag\NamespacedAttributeBag;
 
 /**
  * Class SessionBag
