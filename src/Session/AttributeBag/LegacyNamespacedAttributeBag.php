@@ -4,7 +4,7 @@ namespace Naucon\Storage\Session\AttributeBag;
 
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
 
-class NamespacedAttributeBag extends AttributeBag
+class LegacyNamespacedAttributeBag extends AttributeBag
 {
     private $namespaceCharacter;
 

@@ -10,7 +10,7 @@
 namespace Naucon\Storage\Provider;
 
 
-use Naucon\Storage\Session\AttributeBag\NamespacedAttributeBag;
+use Naucon\Storage\Session\AttributeBag\LegacyNamespacedAttributeBag;
 
 /**
  * Class SessionBag
@@ -18,7 +18,7 @@ use Naucon\Storage\Session\AttributeBag\NamespacedAttributeBag;
  * @package Naucon\Storage\Provider
  * @author Sven Sanzenbacher
  */
-class SessionBag extends NamespacedAttributeBag
+class SessionBag extends LegacyNamespacedAttributeBag
 {
     /**
      * @var     string      default session storage key
