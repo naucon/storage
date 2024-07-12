@@ -3,10 +3,12 @@
 namespace Naucon\Storage\Session\AttributeBag;
 
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
+use function array_key_exists;
+use function count;
 
 class LegacyNamespacedAttributeBag extends AttributeBag
 {
-    private $namespaceCharacter;
+    private string $namespaceCharacter;
 
     /**
      * @param string $storageKey         Session storage key
@@ -21,7 +23,7 @@ class LegacyNamespacedAttributeBag extends AttributeBag
     /**
      * {@inheritdoc}
      */
-    public function has(string $name): bool
+    public function has($name): bool
     {
         $attributes = $this->resolveAttributePath($name);
         $name = $this->resolveKey($name);
@@ -30,13 +32,13 @@ class LegacyNamespacedAttributeBag extends AttributeBag
             return false;
         }
 
-        return \array_key_exists($name, $attributes);
+        return array_key_exists($name, $attributes);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function get(string $name, $default = null)
+    public function get($name, $default = null): mixed
     {
         $attributes = $this->resolveAttributePath($name);
         $name = $this->resolveKey($name);
@@ -45,13 +47,13 @@ class LegacyNamespacedAttributeBag extends AttributeBag
             return $default;
         }
 
-        return \array_key_exists($name, $attributes) ? $attributes[$name] : $default;
+        return array_key_exists($name, $attributes) ? $attributes[$name] : $default;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function set(string $name, $value)
+    public function set($name, $value): void
     {
         $attributes = &$this->resolveAttributePath($name, true);
         $name = $this->resolveKey($name);
@@ -61,12 +63,12 @@ class LegacyNamespacedAttributeBag extends AttributeBag
     /**
      * {@inheritdoc}
      */
-    public function remove(string $name)
+    public function remove($name): mixed
     {
         $retval = null;
         $attributes = &$this->resolveAttributePath($name);
         $name = $this->resolveKey($name);
-        if (null !== $attributes && \array_key_exists($name, $attributes)) {
+        if (null !== $attributes && array_key_exists($name, $attributes)) {
             $retval = $attributes[$name];
             unset($attributes[$name]);
         }
@@ -95,7 +97,7 @@ class LegacyNamespacedAttributeBag extends AttributeBag
         }
 
         $parts = explode($this->namespaceCharacter, $name);
-        if (\count($parts) < 2) {
+        if (count($parts) < 2) {
             if (!$writeContext) {
                 return $array;
             }
@@ -105,10 +107,10 @@ class LegacyNamespacedAttributeBag extends AttributeBag
             return $array;
         }
 
-        unset($parts[\count($parts) - 1]);
+        unset($parts[count($parts) - 1]);
 
         foreach ($parts as $part) {
-            if (null !== $array && !\array_key_exists($part, $array)) {
+            if (null !== $array && !array_key_exists($part, $array)) {
                 if (!$writeContext) {
                     $null = null;
 
