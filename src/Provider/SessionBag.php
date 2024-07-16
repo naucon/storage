@@ -9,7 +9,8 @@
  */
 namespace Naucon\Storage\Provider;
 
-use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
+
+use Naucon\Storage\Session\AttributeBag\LegacyNamespacedAttributeBag;
 
 /**
  * Class SessionBag
@@ -17,7 +18,7 @@ use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
  * @package Naucon\Storage\Provider
  * @author Sven Sanzenbacher
  */
-class SessionBag extends NamespacedAttributeBag
+class SessionBag extends LegacyNamespacedAttributeBag
 {
     /**
      * @var     string      default session storage key
